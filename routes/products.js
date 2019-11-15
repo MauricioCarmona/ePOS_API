@@ -1,7 +1,6 @@
 const express = require('express');
 const ProductsService = require('../services/products');
 
-
 function productsApi(app) {
     const router = express.Router();
     app.use('/api/products', router);
