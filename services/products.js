@@ -1,28 +1,34 @@
-const { productsMock } = require('../utils/mocks/products');
+const MongoLib = require('../lib/mongo');
 
 class ProductsService {
-    async getProducts() {
-        const products = await Promise.resolve(productsMock);
+    constructor() {
+        this.collection = 'products';
+        this.mongoDB = new MongoLib();
+    }
+
+    async getProducts({ tags }) {
+        const query = tags && { tags: { $in: tags }};
+        const products = await this.mongoDB.getAll(this.collection, query);
         return products || [];
     }
 
-    async getProduct() {
-        const product = await Promise.resolve(productsMock[0]);
+    async getProduct({ productId }) {
+        const product = await this.mongoDB.get(this.collection, productId);
         return product || {};
     }
 
-    async createProduct() {
-        const createdProductId = await Promise.resolve(productsMock[0].id)
+    async createProduct({ product }) {
+        const createdProductId = await this.mongoDB.create(this.collection, product);
         return createdProductId;
     }
 
-    async updateProduct() {
-        const updatedProductId = await Promise.resolve(productsMock[0].id)
+    async updateProduct({ productId, product } = {}) {
+        const updatedProductId = await this.mongoDB.update(this.collection, productId, product);
         return updatedProductId;
     }
 
-    async deleteProduct() {
-        const deletedProductId = await Promise.resolve(productsMock[0].id)
+    async deleteProduct({ productId }) {
+        const deletedProductId = await this.mongoDB.delete(this.collection, productId);
         return deletedProductId;
     }
 };

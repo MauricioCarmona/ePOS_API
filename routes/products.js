@@ -12,6 +12,7 @@ function productsApi(app) {
 
         try {
             const products = await productsService.getProducts({ tags });
+            throw new Error('This is an error BITCH');
 
             res.status(200).json({
                 data: products,
@@ -37,15 +38,15 @@ function productsApi(app) {
     });
 
     router.post('/', async function(req, res, next) {
-        const { body: product } = req
+        const { body: product } = req;
         try {
-            const createdProductId = productsService.createProduct({ product });
+            const createdProductId = await productsService.createProduct({ product });
 
-            res.status(200).json({
+            res.status(201).json({
                 data: createdProductId,
                 message: 'product created',
             })
-        } catch(err) {
+        } catch (err) {
             next(err);
         }
     });
@@ -54,12 +55,12 @@ function productsApi(app) {
         const { productId } = req.params;
         const { body: product } = req;
         try {
-            const updatedMovieId = productsService.updateProduct({
+            const updatedMovieId = await productsService.updateProduct({
                 productId,
                 product,
             });
 
-            res.status(201).json({
+            res.status(200).json({
                 data: updatedMovieId,
                 message: 'product updated',
             })
