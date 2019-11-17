@@ -7,6 +7,7 @@ const productsApi = require('./routes/products');
 const clientsApi = require('./routes/clients');
 const usersApi = require('./routes/users');
 const shipmentsApi = require('./routes/shipments');
+const shipmentItemsApi = require('./routes/shipmentItems');
 
 const {
     logErrors,
@@ -24,6 +25,7 @@ productsApi(app);
 clientsApi(app);
 usersApi(app);
 shipmentsApi(app);
+shipmentItemsApi(app);
 
 // Catch 404
 app.use(notFoundHandler);
