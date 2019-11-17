@@ -15,7 +15,7 @@ describe('routes - products', function() {
       request.get('/api/products').expect(200, done);
     });
 
-    it('should respond with the list of movies', function(done) {
+    it('should respond with the list of products', function(done) {
       request.get('/api/products').end((err, res) => {
         assert.deepEqual(res.body, {
           data: productsMock,

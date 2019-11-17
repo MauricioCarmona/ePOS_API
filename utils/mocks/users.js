@@ -551,22 +551,22 @@ const usersMock = [
   }
 ];
 
-function filteredProductsMock(category) {
-  return usersMock.filter(product => product.category.includes(category));
+function filteredUsersMock(category) {
+  return usersMock.filter(user => user.category.includes(category));
 }
 
-class ProductsServiceMock {
-  async getProducts() {
+class UsersServiceMock {
+  async getUsers() {
     return Promise.resolve(usersMock);
   }
 
-  async createProduct() {
+  async createUsers() {
     return Promise.resolve(usersMock[0]);
   }
 }
 
 module.exports = {
   usersMock,
-  filteredProductsMock,
-  ProductsServiceMock
+  filteredUsersMock,
+  UsersServiceMock
 };
