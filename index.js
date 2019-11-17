@@ -20,6 +20,11 @@ const notFoundHandler = require('./utils/middleware/notFoundHandler');
 //Body parser middleware
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    let userInfo = req.header("user-agent");
+    res.send(`UserInfo: ${userInfo}`);
+  });
+
 // Routes
 productsApi(app);
 clientsApi(app);

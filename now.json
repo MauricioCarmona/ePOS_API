@@ -1,0 +1,12 @@
+{
+    "name": "epos api",
+    "version": 2,
+    "builds": [{ "src": "index.js", "use": "@now/node"}],
+    "routes": [{ "src": "/(.*)", "dest": "/index.js"}],
+    "env": {
+        "DB_USER": "@epos-db-user",
+        "DB_PASSWORD": "@epos-db-password",
+        "DB_HOST": "@epos-db-host",
+        "DB_NAME": "@epos-db-name"
+    }
+}
