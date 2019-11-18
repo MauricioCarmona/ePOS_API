@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const joi = require('@hapi/joi');
 const ProductsService = require('../services/products');
 
@@ -9,11 +10,16 @@ const {
 } = require('../utils/schemas/products');
 
 const validationHandler = require('../utils/middleware/validationHandler');
+const scopesValidationHandler = require('../utils/middleware/scopesValidationHandler');
+
 const cacheResponse = require('../utils/cacheResponse');
 const {
   FIVE_MINUTES_IN_SECONDS,
   SIXTY_MINUTES_IN_SECONDS
 } = require('../utils/time');
+
+// JWT Strategy
+require('../utils/auth/strategies/jwt');
 
 function productsApi(app) {
   const router = express.Router();
@@ -21,7 +27,7 @@ function productsApi(app) {
 
   const productsService = new ProductsService();
 
-  router.get('/', async function(req, res, next) {
+  router.get('/', passport.authenticate('jwt', { session: false }), scopesValidationHandler(['read:products']), async function(req, res, next) {
     cacheResponse(res, FIVE_MINUTES_IN_SECONDS);
     const { tags } = req.query;
 
@@ -39,6 +45,7 @@ function productsApi(app) {
 
   router.get(
     '/:productId',
+    passport.authenticate('jwt', { session: false }), scopesValidationHandler(['read:products']),
     validationHandler(joi.object({ productId: productIdSchema }), 'params'),
     async function(req, res, next) {
         cacheResponse(res, SIXTY_MINUTES_IN_SECONDS);
@@ -56,7 +63,7 @@ function productsApi(app) {
     }
   );
 
-  router.post('/', validationHandler(createProductSchema), async function(
+  router.post('/', passport.authenticate('jwt', { session: false }),  scopesValidationHandler(['create:products']),validationHandler(createProductSchema), async function(
     req,
     res,
     next
@@ -75,7 +82,8 @@ function productsApi(app) {
   });
 
   router.put(
-    '/:productId',
+    '/:productId',passport.authenticate('jwt', { session: false }),
+    scopesValidationHandler(['update:products']),
     validationHandler(joi.object({ productId: productIdSchema }), 'params'),
     validationHandler(updateProductSchema),
     async function(req, res, next) {
@@ -98,7 +106,7 @@ function productsApi(app) {
   );
 
   router.delete(
-    '/:productId',
+    '/:productId', passport.authenticate('jwt', { session: false }), scopesValidationHandler(['delete:products']),
     validationHandler(joi.object({ productId: productIdSchema }), 'params'),
     async function(req, res, next) {
       const { productId } = req.params;

@@ -8,6 +8,7 @@ const clientsApi = require('./routes/clients');
 const usersApi = require('./routes/users');
 const shipmentsApi = require('./routes/shipments');
 const shipmentItemsApi = require('./routes/shipmentItems');
+const authApi = require('./routes/auth');
 
 const {
     logErrors,
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
   });
 
 // Routes
+authApi(app);
 productsApi(app);
 clientsApi(app);
 usersApi(app);

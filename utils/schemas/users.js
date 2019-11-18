@@ -8,6 +8,7 @@ const userFirstNameSchema = joi.string().max(80);
 const userLastNameSchema = joi.string().max(80);
 const userBirthdaySchema = joi.string();
 const userGenderSchema = joi.string();
+const userIsAdminSchema = joi.boolean();
 const userPhoneSchema = joi.number();
 const userConfirmationTokenSchema = joi.string();
 const userResetPasswordTokenSchema = joi.string();
@@ -29,6 +30,7 @@ const createUserSchema = joi.object({
     last_name: userLastNameSchema.required(),
     birthday: userBirthdaySchema.required(),
     gender: userGenderSchema.required(),
+    isAdmin: userIsAdminSchema,
     phone_number: userPhoneSchema.required(),
     confirmation_token: userConfirmationTokenSchema,
     reset_password_token: userResetPasswordTokenSchema,
@@ -51,6 +53,7 @@ const updateUserSchema = joi.object({
     last_name: userLastNameSchema,
     birthday: userBirthdaySchema,
     gender: userGenderSchema,
+    isAdmin: userIsAdminSchema,
     phone_number: userPhoneSchema,
     confirmation_token: userConfirmationTokenSchema,
     reset_password_token: userResetPasswordTokenSchema,
