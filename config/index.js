@@ -12,7 +12,7 @@ const config = {
     defaultUserPassword: process.env.DEFAULT_USER_PASSWORD,
     authJwtSecret: process.env.AUTH_JWT_SECRET,
     publicApiKeyToken: process.env.PUBLIC_API_KEY_TOKEN,
-    AdmonaApiKey : process.env.ADMIN_API_KEY_TOKEN
+    adminApiKey : process.env.ADMIN_API_KEY_TOKEN
 }
 
 module.exports = { config };
