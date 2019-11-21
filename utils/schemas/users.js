@@ -2,7 +2,7 @@ const joi = require('@hapi/joi');
 
 const userIdSchema = joi.string().regex(/^[0-9a-fA-F]{24}$/);
 const userEmailSchema = joi.string().email();
-const userNameSchema = joi.string();
+const nameSchema = joi.string();
 const userPasswordSchema = joi.string();
 const userFirstNameSchema = joi.string().max(80);
 const userLastNameSchema = joi.string().max(80);
@@ -22,15 +22,14 @@ const userProfileIdSchema = joi.number();
 const userCreatedAtSchema = joi.string();
 const userUpdatedAtSchema = joi.string();
 
-const createUserSchema = joi.object({
+const userSchema = joi.object({
     email: userEmailSchema.required(),
-    user_name: userNameSchema.required(),
+    name: nameSchema,
     password: userPasswordSchema.required(),
     first_name: userFirstNameSchema.required(),
     last_name: userLastNameSchema.required(),
     birthday: userBirthdaySchema.required(),
     gender: userGenderSchema.required(),
-    isAdmin: userIsAdminSchema,
     phone_number: userPhoneSchema.required(),
     confirmation_token: userConfirmationTokenSchema,
     reset_password_token: userResetPasswordTokenSchema,
@@ -47,7 +46,7 @@ const createUserSchema = joi.object({
 
 const updateUserSchema = joi.object({
     email: userEmailSchema,
-    user_name: userNameSchema,
+    name: nameSchema,
     password: userPasswordSchema,
     first_name: userFirstNameSchema,
     last_name: userLastNameSchema,
@@ -68,8 +67,24 @@ const updateUserSchema = joi.object({
     updated_at: userUpdatedAtSchema
 });
 
+const createUserSchema = joi.object ({
+    name: nameSchema,
+    email: userEmailSchema,
+    password: userPasswordSchema,
+    isAdmin: joi.boolean()
+})
+
+const createProviderUserSchema = joi.object({
+    name: nameSchema,
+    email: userEmailSchema,
+    password: userPasswordSchema,
+    apiKeyToken: joi.string()
+})
+
 module.exports = {
+    userSchema,
     userIdSchema,
     createUserSchema,
+    createProviderUserSchema,
     updateUserSchema,
 };

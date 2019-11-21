@@ -9,28 +9,28 @@ const { config } = require('../../config/index');
 const users = [
   {
     email: 'root@undefined.sh',
-    user_name: 'ROOT',
+    name: 'ROOT',
     password: config.defaultAdminPassword,
     isAdmin: true
   },
   {
     email: 'jose@undefined.sh',
-    user_name: 'JoseMaria',
+    name: 'JoseMaria',
     password: config.defaultUserPassword
   },
   {
     email: 'maria@undefined.sh',
-    user_name: 'MariaJose',
+    name: 'MariaJose',
     password: config.defaultUserPassword
   }
 ];
 
 async function createUser(mongoDB, user) {
-  const { user_name, email, password, isAdmin } = user;
+  const { name, email, password, isAdmin } = user;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const userId = await mongoDB.create('users', {
-    user_name,
+    name,
     email,
     password: hashedPassword,
     isAdmin: Boolean(isAdmin)

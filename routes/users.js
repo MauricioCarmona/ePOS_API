@@ -23,10 +23,10 @@ function usersApi(app) {
 
   router.get('/', async function(req, res, next) {
     cacheResponse(res, FIVE_MINUTES_IN_SECONDS);
-    const { user_name } = req.query;
+    const { name } = req.query;
 
     try {
-      const users = await usersService.getUsers({ user_name });
+      const users = await usersService.getUsers({ name });
 
       res.status(200).json({
         data: users,

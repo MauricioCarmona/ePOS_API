@@ -7,8 +7,8 @@ class UsersService {
         this.mongoDB = new MongoLib();
     }
 
-    async getUsers({ user_name }) {
-        const query = user_name && { user_name: { $in: user_name }};
+    async getUsers({ name }) {
+        const query = name && { name: { $in: name }};
         const users = await this.mongoDB.getAll(this.collection, query);
         return users || [];
     }
@@ -19,11 +19,11 @@ class UsersService {
     }
 
     async createUser({ user }) {
-        const { user_name, email, password } = user;
+        const { name, email, password } = user;
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const createdUserId = await this.mongoDB.create(this.collection, {
-            user_name,
+            name,
             email,
             password: hashedPassword
         });
@@ -39,6 +39,17 @@ class UsersService {
         const deletedUserId = await this.mongoDB.delete(this.collection, userId);
         return deletedUserId;
     }
+
+    async getOrCreateUser({ user }) {
+        const queriedUser = await this.getUser({ email: user.email });
+    
+        if (queriedUser) {
+          return queriedUser;
+        }
+    
+        await this.createUser({ user });
+        return await this.getUser({ email: user.email });
+      }
 };
 
 module.exports = UsersService;

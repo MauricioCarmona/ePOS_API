@@ -2,7 +2,7 @@ const usersMock = [
   {
     id: 1,
     email: 'cdevries0@prnewswire.com',
-    user_name: 'cdevries0',
+    name: 'cdevries0',
     password: 'IpixNs',
     first_name: 'Clevey',
     last_name: 'De Vries',
@@ -25,7 +25,7 @@ const usersMock = [
   {
     id: 2,
     email: 'egaspar1@columbia.edu',
-    user_name: 'egaspar1',
+    name: 'egaspar1',
     password: 'PDvErieBJ',
     first_name: 'Ella',
     last_name: 'Gaspar',
@@ -48,7 +48,7 @@ const usersMock = [
   {
     id: 3,
     email: 'lsaynor2@independent.co.uk',
-    user_name: 'lsaynor2',
+    name: 'lsaynor2',
     password: 'odFfgm',
     first_name: 'Lanny',
     last_name: 'Saynor',
@@ -71,7 +71,7 @@ const usersMock = [
   {
     id: 4,
     email: 'ngerckens3@oracle.com',
-    user_name: 'ngerckens3',
+    name: 'ngerckens3',
     password: 'd8PuksZVdaE',
     first_name: 'Nikoletta',
     last_name: 'Gerckens',
@@ -94,7 +94,7 @@ const usersMock = [
   {
     id: 5,
     email: 'rledson4@vinaora.com',
-    user_name: 'rledson4',
+    name: 'rledson4',
     password: 'AfXVubnakj5l',
     first_name: 'Ronnica',
     last_name: 'Ledson',
